@@ -100,6 +100,23 @@ each option with probabilility $1/3$.  That is, $pp = pr = ps = 1/3$.
 \section*{Problem 4}
 Compare and contrast an eBay auction with the sealed-bid second-price auction described in class. (Read up on eBay auctions if you don’t already know how they work.) Should you bid differently in the two auctions?
 
+Sealed bid auctions have three components.  Bidders submit their bids ${b_1,
+b_2...b_n}$ and the seller determines an allocation $x(b) \in X \in
+\mathbb{R}^n$.  Each bidder then pays a price according to their allocations
+and bids $p(b) \in \mathbb{R}^n$. 
+
+There are a few differences between eBay bids and sealed bid auctions.  Ebay
+bids are usually for a single item that goes to one person.  Therefore the
+allocation is 1 for one bidder and zero for everyone else. Bidders in eBay
+auctions can see the highest bid, so while they don't know everyone's
+valuations or bids, they can always see the highest bid.  eBay auctions also
+allow bidders to update their bids and new bidders to join at any time until
+the auction is over. New people can submit bids at any time as well, provided their bids
+are higher than the current high bid.  In sealed bid auctions, all bids
+are submitted at once, are sealed and no bidder has any knowledge about the
+other bids (including who's is highest). In both auctions, the valuations are
+always private.
+
 \section*{Problem 5}
 Consider a single-item auction with at least three bidders. Prove that awarding the item to the highest bidder, at a price equal to the third-highest bid, yields an auction that is not dominant-strategy incentive
 compatible (DSIC).
