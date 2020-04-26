@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage{graphicx,fancyhdr,amsmath,amssymb,amsthm,subfig,url,hyperref,bm}
+\usepackage[margin=1in]{geometry}
+
+%----------------------- Macros and Definitions --------------------------
+
+%%% FILL THIS OUT
+\newcommand{\studentname}{Garrett Rodrigues}
+\newcommand{\exerciseset}{Exercise Set 1}
+%%% END
+
+
+
+\renewcommand{\theenumi}{\bf \Alph{enumi}}
+
+%\theoremstyle{plain}
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}[theorem]{Lemma}
+
+\fancypagestyle{plain}{}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RO,LE]{\sffamily\bfseries\large Stanford University}
+\fancyhead[LO,RE]{\sffamily\bfseries\large CS 364A Algorithmic Game Theory}
+\fancyfoot[LO,RE]{\sffamily\bfseries\large \studentname}
+\fancyfoot[RO,LE]{\sffamily\bfseries\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+\graphicspath{{figures/}}
+
+%-------------------------------- Title ----------------------------------
+
+\title{CS364A \exerciseset}
+\author{\studentname}
+
+%--------------------------------- Text ----------------------------------
+
+\begin{document}
+\maketitle
+
+\section*{Exercise 9}
+Use Myerson’s Lemma to prove that the Vickrey auction is the unique single-item auction that is DSIC,
+always awards the good to the highest bidder, and charges losers 0.
+
+Recall the three components of Myserson's Lemma (for single parameter
+environments).
+\begin{enumerate}
+\item An allocation rule x is implementable if and only if it is monotone
+\item If x is monotone, then there is a unique payment rule such that the sealed-bid mechanism (x, p) is DSIC [assuming the normalization that bi = 0 implies pi(b) = 0]. 
+\item The payment rule in (b) is given by an explicit formula 
+\end{enumerate}
+
+\begin{equation}
+	p(b_i, \bm{b_{-i}}) = \sum_{j=1}^{l}\text{jump in x}_i(\cdot,
+	\bm{b_{-i}})\text{at $z_j$}
+\end{equation}
+
+Also recall that a Vickrey auction is defined as a sealed-bid auction where
+the highest bidder wins and pays a price equal to the second highest bid.
+
+Therefore, by definition, the Vickrey awards the good to the highest bidder
+By Myerson's lemma, we know that for single parameter
+enviroments (e.g. this single item auction), if x is monotone, then it is
+implementable and there is a unique payment rule such that the sealed bid
+mechanism is DSIC. In the Vickrey auction, the allocation rule looks like a
+step function, with all bidders getting 0 allocation until we reach the
+second highest bidder, after which the allocation is 1. Therefore, the
+allocation rule in a Vickrey auction is monotone.
+
+Let $b_{high}$ be the highest bidder and $\bm{b_{-high}}$ be all other
+bidders.  Given the payment rule outlined in Myserson's lemma, the payment for
+$\bm{b_{-high}}$ is 0 because there are no jumps before the highest bidder
+(the only jump in the allocation happens AT the second highest bid).  For
+$b_{high}$, the payment rule gives the prices as $z_j$ multiplied by the jump
+in x.  $z_j$ is equal to the second highest bid and the jump in x at the
+second highest bid is from 0 to 1.  Therefore the payment for the highest
+bidder is equal to the second highest bid, exactly as outlined in the Vickrey
+auction. 
+\section*{Exercise 10}
+Use the “payment difference sandwich” in the proof of Myerson’s Lemma to prove that if an allocation rule is not monotone, then it is not implementable.
+
+In the payment sandwich, we defined two bids y and z with y $<$ z.  For those
+two bids, we were able to use the "swapping trick" to come up with the payment
+sandwich.  If x is not monotone, that means for some value of y and z (with y
+smaller than z), there is an allocation such that $x(y) > x(z)$,
+which implies that $x(y) - x(z) > 0$.  So from the payment sandwich, we get
+that $y[x(y) - x(z)] \geq p(y) - p(z) \geq z[x(y) - x(z)]$.  Since we know
+that $x(y) - x(z)$ is positive, a non-monotone allocation rule implies that y
+must be $\geq$ z, which contradicts our definition that y $<$ z.
+\section*{Exercise 11}
+\end{document}
+
