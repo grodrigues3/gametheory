@@ -6,7 +6,7 @@
 
 %%% FILL THIS OUT
 \newcommand{\studentname}{Garrett Rodrigues}
-\newcommand{\exerciseset}{Exercise Set 1}
+\newcommand{\exerciseset}{Exercise Set 2}
 %%% END
 
 
@@ -89,5 +89,77 @@ that $y[x(y) - x(z)] \geq p(y) - p(z) \geq z[x(y) - x(z)]$.  Since we know
 that $x(y) - x(z)$ is positive, a non-monotone allocation rule implies that y
 must be $\geq$ z, which contradicts our definition that y $<$ z.
 \section*{Exercise 11}
+We concluded the proof of Myerson’s Lemma by giving a “proof by picture” that coupling a monotone and
+piecewise constant allocation rule x with the payment formula (see above), yields a DSIC
+mechanism. Where does the proof-by-picture break down if the piecewise constant allocation rule x is not
+monotone?
+
+If thi piecewise constant allocation rule x is not monotone, that means there
+is some point at which there is a "downward" jump when you increase your bid.
+That is, there is some point where a bidder's bid increases at which their
+allocation decreases.  That means they could get more by bidding less and
+their utility is no longer maximized by bidding truthfully.  By bidding less,
+they would pay the same amount (since a drop in the allocation doesn't
+contribute to an increased payment according the payment rule) and they would
+get more surplus.  Since utility is just surplus - payment, if the surplus
+increases and the payment doesn't, that means the utility increases when they
+underbid, which breaks DSIC.
+
+\section*{Exercise 12}
+Give a purely algebraic proof that coupling a monotone and piecewise constant allocation rule x with the
+payment rule (1) yields a DSIC mechanism.
+
+To show this, we need to show that the Utility for a bidder in an auction
+with a piecewise constant and montone allocation rule x and the payment rule
+above is maximized when the bidder bids, their true value $v_i$.  To do this,
+we will compare the utility of the bid $v_i$ to the utility of the bids
+$b_{low}$ and $b_{high}$ and show that that utility of $v_i$ is guaranteed to
+be $\geq$ than utility for a higher or lower bid.
+
+\begin{enumerate}
+	\item Recall that the utility for a bidder is given by $u(b) = v_i x(b) -
+		p(b)$ 
+	\item Therefore the utility of bidding $v_i$ is $u(v_i, \mathbf{b_{-i})} =
+		v_i x(v_i) - p(v_i)$
+	\item $u(v_i) - u(b_{high}) = [v_i x(v_i) - p(v_i)] - [v_i x(b_{high}) -
+		p(b_{high})]$
+	\item $u(v_i) - u(b_{high}) = v_i[x(v_i) - x(b_{high}] - p(v_i) + p(b_{high})$
+\item $u(v_i) - u(b_{high}) = v_i[x(v_i) - x(b_{high}] +
+	\sum_{k=1}^{l}z_k\text{jump in x}_i(\cdot, \bm{b_{-i}}) \text{at }z_k $
+\item Where $z_1, z_2...z_k$ are the breakpoints in the function $x_i(\cdot,
+	\bm{b_{-i}})$ in the range $[v_i, b_{high}]$
+\item Because we know that $z_1, z_2,...z_k$ are all $\geq v_i$, we can change
+	the equality to:
+\item $u(v_i) - u(b_{high}) \geq v_i[x(v_i) - x(b_{high}] + v_i
+	\sum_{k=1}^{l}\text{jump in x}_i(\cdot, \bm{b_{-i}})$ 
+\item $u(v_i) - u(b_{high}) \geq v_i[x(v_i) - x(b_{high})] + v_i [x(b_{high}) -
+	v_i]$
+\item $u(v_i) - u(b_{high}) \geq 0$
+\end{enumerate}
+
+We can do something similar for a lower bid $b_{low}$
+
+\begin{enumerate}
+\item $u(v_i) - u(b_{low}) = [v_i x(v_i) - p(v_i)]] - [v_i x(b_{low}) -
+		p(b_{low})$
+\item $u(v_i) - u(b_{low}) = v_i[x(v_i) - x(b_{low}] - p(v_i) + p(b_{low})$
+\item $u(v_i) - u(b_{low}) = v_i[x(v_i) - x(b_{low}] -
+	\sum_{k=1}^{l}z_k\text{jump in x}_i(\cdot, \bm{b_{-i}}) \text{at }z_k $
+\item Where $z_1, z_2...z_k$ are the breakpoints in the function $x_i(/cdot,
+	\bm{b_{-i}})$ in the range $[b_{low}, v_i]$
+\item Because we know that $z_1, z_2,...z_k$ are all $\leq v_i$, we can change
+	the equality to (note the negative in from of the summation above):
+\item $u(v_i) - u(b_{low}) \geq v_i[x(v_i) - x(b_{low}] - v_i
+	\sum_{k=1}^{l}\text{jump in x}_i(\cdot, \bm{b_{-i}})$ 
+\item $u(v_i) - u(b_{low}) \geq v_i[x(v_i) - x(b_{low})] - v_i [x(v_i) -
+	x(b_{low})]$
+\item $u(v_i) - u(b_{low}) \geq 0$
+\end{enumerate}
+
+Thus we have shown for monotone and piecewise constant allocation rule x,
+bidding truthfully produces a utility that is $\geq$ the utility for all
+higher bids and all lower bids. The utility is thus maximized when bidding
+$v_i$; therefore, we have created a DSIC mechanism.
+
 \end{document}
 
