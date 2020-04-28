@@ -11,7 +11,7 @@
 
 
 
-\renewcommand{\theenumi}{\bf \Alph{enumi}}
+\renewcommand{\theenumi}{\bf \arabic{enumi}}
 
 %\theoremstyle{plain}
 %\newtheorem{theorem}{Theorem}
@@ -52,7 +52,7 @@ environments).
 \end{enumerate}
 
 \begin{equation}
-	p(b_i, \bm{b_{-i}}) = \sum_{j=1}^{l}\text{jump in x}_i(\cdot,
+	p(b_i, \bm{b_{-i}}) = \sum_{j=1}^{l}z_j\text{jump in x}_i(\cdot,
 	\bm{b_{-i}})\text{at $z_j$}
 \end{equation}
 
@@ -161,5 +161,86 @@ bidding truthfully produces a utility that is $\geq$ the utility for all
 higher bids and all lower bids. The utility is thus maximized when bidding
 $v_i$; therefore, we have created a DSIC mechanism.
 
-\end{document}
+\section*{Exercise 13}
+Consider the following extension of the sponsored search setting discussed in lecture. Each bidder i now has
+a publicly known quality $\beta_i$ (in addition to a private valuation vi per click).
+As usual, each slot j has a CTR $\alpha_j$, and $\alpha_1 \geq\alpha_2 · · ·
+\geq\alpha_k$.\\
 
+We assume that if bidder i is placed in slot j, its probability of a click is
+$\beta_i \alpha_j$
+thus, bidder i derives value $v_i\beta_i\alpha_j$ from this outcome.
+Describe the surplus-maximizing allocation rule in this generalized sponsored search setting. Argue that
+this rule is monotone. Give an explicit formula for the per-click payment of each bidder that extends this
+allocation rule to a DSIC mechanism.
+
+This surplus maximizing allocation rule for this auction is to give to the
+slot with the highest CTR, slot 1, to the highest bidder, the slot with second
+highest CTR to the second highest bidder and so on until the jth slot is
+filled.  All bidders lower than the jth highest recieve no slots.  Although
+its true allocation for the highest j bidders is 1 (they each get a slot), the
+CTR for those slots is monotonically increasing. The payment rule is given as:
+\begin{equation}
+	p(b_i, \bm{b_{-i}}) = \dfrac{1}{\alpha_j - \alpha_{j-1}}\sum_{j=1}^{l}z_j[\text{jump in CTR between
+	$\alpha_j$ and$\alpha_{j-1}$]}
+\end{equation}
+
+\section*{Exercise 14}
+Consider an arbitrary single-parameter environment, with feasible set X. The
+surplus-maximizing allocation rule is $x(\bm{b}) = arg max(x_1,...,x_n)\in X
+\sum_{i=1}^{n}b_ix_i$. Prove that this allocation rule is monotone.
+[You should assume that ties are broken in a deterministic and consistent way, such as lexicographically.]
+
+\begin{proof}
+	Assume that the allocation rule $x(\bm{b})$ is not monotone. That means
+	there exists two bids $b_i, b_j$ with $b_i \leq b_j$ for which the
+	allocation of $b_i \le b_j$ (ie. $x(b_i, \bm{b_{-i}}) \le
+	x(b_j,\bm{b_{-j}})$). But since $b_i$ is $\leq b_j$, that means if we
+	swapped their allocations, then the overall surplus would be greater than
+	the surplus achieved with $x(\bm{b})$, but this contradicts that we
+	defined $x(\bm{b})$ as the surplus-maximizing allocation.
+\end{proof}
+
+\section*{Exercise 15}
+\section*{Exercise 16}
+Continuing the previous exercise, consider a 0-1 downward-closed
+single-parameter environment. Suppose you are given a “black box” that can
+compute the surplus-maximizing allocation rule x(b) for an arbitrary input b.
+Explain how to compute the payments identified in the previous exercise by invoking this black box multiple times.
+
+
+\begin{enumerate}%%[label = Step \arabic*:]
+	\item Use the blackbox to calculate the x($\bm{b}$) for the current bids $\bm{b}$.
+	\item Calculate the surplus for this allocation as $S(\bm{b}) = \sum_{j \in x(\bm{b})}v_j$.
+	\item For every bidder i with allocation 1 in $x(\bm{b})$, remove them
+		from the set of bidders to create $b_{-i}$ and use the black box to
+		calculate the surplus-maximizing allocation $x(\bm{b_{-i}})$.  Then
+		for every bidder i, calculate the surplus as $S(\bm{b_{-i}}=)sum_{j \in
+		x(\bm{b_{-i}})} v_j$
+	\item For every bidder i with allocation 1 in $x(\bm{b})$, we can then
+		calculate their payment (i.e. the critical bid)
+		as the difference between between the surplus given by $S(\bm{b_{-i}})-[S(\bm{b}) - v_i]$
+\end{enumerate}
+
+\section*{Exercise 17}
+Review the knapsack problem.  DP solution that is NP-hard with running time
+O(Wn) where W is the capacity of the knapsack and n is the number if items.
+
+\section*{Exercise 18}
+Prove that the Knapsack auction allocation rule induced by the greedy
+$\dfrac{1}{2}$-approximation algorithm covered in lecture is monotone.
+
+Allocation rule covered in lecture says sort the items by the ratio of their
+$\frac{bid}{capacity}$ in descending order.  Continue to include items in the
+feasible set until an item does not fit.  Then, do not allocate all remaining
+items.  That means our allocation looks like a step function, with a sequence
+of zeros followed by a sequence of ones: x = {0, 0, ...1,1,1}.  There cannot
+be any items not allocated preceding items that are included in the
+allocations when sorted by their $\frac{bid}{capacity}$ ratio.
+
+Suppose our allocation rule above was not monotone.  That means there exist
+two items i, j for which $\frac{b_i}{w_i} \leq \frac{v_j}{w_j}$ where i is
+included in the allocation and j is not.  That contradicts the defition of our  
+allocation rule because we allocate in order of $\frac{bid}{capacity}$ ratio.
+
+\end{document}
